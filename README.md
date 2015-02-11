@@ -1,9 +1,9 @@
 Server demo
 ================================
-#technology
-+scala java
-+akka spray
-+mongo
+# Technology
++ scala java
++ akka spray
++ mongo
 
 
 
