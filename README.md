@@ -1,7 +1,9 @@
 Server demo
 ================================
+#technology
++scala java
++akka spray
++mongo
 
-scala lanage
 
-akka, spray,mongo
 
