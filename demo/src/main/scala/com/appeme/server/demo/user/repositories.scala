@@ -31,8 +31,9 @@ class UserRepositories(mongoClient:MongoClient, database:String) extends Actor w
   }
 
   def update(vo:UpdateVo) = {
-    val o = collection.findAndModify(MongoDBObject("id" -> vo.id),
-      MongoDBObject("name" -> vo.name,
+    collection.update(MongoDBObject("id" -> vo.id),
+      MongoDBObject("$set" -> MongoDBObject(
+                    "name" -> vo.name,
                     "icon" -> vo.icon,
                     "company" -> MongoDBObject(
                         "name" -> vo.company,
@@ -43,8 +44,9 @@ class UserRepositories(mongoClient:MongoClient, database:String) extends Actor w
                         "positions" -> vo.positions
                     ),
                     "cities" -> vo.cities,
-                    "address" -> vo.address))
-    o.mkString
+                    "address" -> vo.address)))
+    val o = collection.findOne(MongoDBObject("id" -> vo.id))
+    sender() ! o.toString()
   }
 
   def receive = {

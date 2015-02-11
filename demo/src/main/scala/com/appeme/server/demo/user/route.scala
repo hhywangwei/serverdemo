@@ -33,19 +33,21 @@ trait UserService extends HttpService{
   }
 
   def update = (id:String, vo:UpdateVo) => {
+    vo.id = Option(id)
     val f = userRepositories ? vo
     Await.result(f, timeout.duration).asInstanceOf[String]
   }
 
   def userRoute:Route = {
-    post{
-        handleWith(register)
-    } ~ path(Segment) { id =>
+    path(Segment) { id =>
       post {
         entity(as[UpdateVo]){
           vo => complete(update(id, vo))
         }
       }
+    } ~
+    post{
+        handleWith(register)
     }
   }
 }
