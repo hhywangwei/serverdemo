@@ -2,10 +2,10 @@ package com.appeme.server.demo.user.service
 
 import akka.util._
 import akka.pattern._
+import spray.http.StatusCodes
 import spray.httpx.SprayJsonSupport
 import spray.json.DefaultJsonProtocol
 import spray.routing.{HttpService, Route}
-import spray.routing.PathMatchers.Segment
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import com.mongodb.casbah.MongoClient
@@ -39,15 +39,20 @@ trait UserService extends HttpService{
   }
 
   def userRoute:Route = {
-    path(Segment) { id =>
-      post {
-        entity(as[UpdateVo]){
-          vo => complete(update(id, vo))
+    post{
+      path(Segment) {
+        id => entity(as[UpdateVo]){
+          vo => {
+            complete(StatusCodes.OK,update(id, vo))
+          }
+        }
+      } ~ {
+        entity(as[RegisterVo]){
+          vo => {
+            complete(register(vo))
+          }
         }
       }
-    } ~
-    post{
-        handleWith(register)
     }
   }
 }

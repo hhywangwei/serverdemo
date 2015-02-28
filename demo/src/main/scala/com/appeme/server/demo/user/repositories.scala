@@ -27,7 +27,7 @@ class UserRepositories(mongoClient:MongoClient, database:String) extends Actor w
 
   def insert(m:User) ={
     collection.save(m)
-    m
+    sender() ! m.toString
   }
 
   def update(vo:UpdateVo) = {
@@ -46,13 +46,12 @@ class UserRepositories(mongoClient:MongoClient, database:String) extends Actor w
                     "cities" -> vo.cities,
                     "address" -> vo.address)))
     val o = collection.findOne(MongoDBObject("id" -> vo.id))
-    sender() ! o.toString()
+    sender() ! o.toString
   }
 
   def receive = {
     case vo:RegisterVo =>
       insert(User(vo.mobile, vo.name, vo.password))
-      sender() ! "{\"ok\":true}"
     case vo:UpdateVo =>
       update(vo)
     case _ =>
