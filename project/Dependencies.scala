@@ -19,4 +19,7 @@ object Dependencies{
   val sprayJson =  "io.spray" %%  "spray-json" % "1.3.1"
   val mongo = "org.mongodb" %% "casbah" % "2.7.4"
   val scalaTest = "org.scalatest" %% "scalatest" % "2.2.1"
+  val scalaMock = "org.scalamock" %% "scalamock-scalatest-support" % "3.2"
+  val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.12.2"
+  val junit = "junit" % "junit" % "4.12"
 }

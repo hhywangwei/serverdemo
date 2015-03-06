@@ -14,7 +14,7 @@ object Build extends Build {
     .settings(
        libraryDependencies ++=
            compile(scalaLogging, scalaXml, akkaSlf4j, akka, logback, sprayCan, sprayHttpx, sprayRouting, sprayJson, mongo) ++
-           test(scalaTest)
+           test(scalaTest, scalaMock, junit,scalaCheck)
     )
 }
 

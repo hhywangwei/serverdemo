@@ -5,6 +5,8 @@
       <w>deps</w>
       <w>httpx</w>
       <w>logback</w>
+      <w>scalacheck</w>
+      <w>scalamock</w>
       <w>scalatest</w>
       <w>typesafe</w>
     </words>
